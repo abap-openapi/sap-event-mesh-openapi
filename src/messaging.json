@@ -13,6 +13,11 @@
       }
     }
   ],
+  "security": [
+    {
+      "oauth2sample": []
+    }
+  ],
   "externalDocs": {
     "description": "SAP Event Mesh - REST APIs Messaging",
     "url": "https://help.sap.com/doc/3dfdf81b17b744ea921ce7ad464d1bd7/Cloud/en-US/messagingrest-api-spec.html"
@@ -248,7 +253,7 @@
           },
           {
             "name": "message-id",
-            "in": "header",
+            "in": "path",
             "description": "Message ID",
             "required": true,
             "schema": {
@@ -366,6 +371,18 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "oauth2sample": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "/oauth/authorize",
+            "tokenUrl": "/oauth/token",
+            "scopes": {}
+          }
+        }
+      }
+    },
     "schemas": {
       "ErrorMessage": {
         "type": "object",
