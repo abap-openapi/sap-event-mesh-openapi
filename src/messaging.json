@@ -2,13 +2,15 @@
   "openapi": "3.0.1",
   "servers": [
     {
-      "url": "{scheme}://event-mesh-url/messagingrest/v1",
+      "url": "https://{subaccount}.enterprise-messaging.cfapps.{region}.hana.ondemand.com/messagingrest/v1",
       "variables": {
-        "scheme": {
-          "enum": [
-            "https"
-          ],
-          "default": "https"
+        "subaccount": {
+          "default": "ENTER-NAME-HERE",
+          "description": "subaccount"
+        },
+        "region": {
+          "default": "eu10",
+          "description": "region"
         }
       }
     }
