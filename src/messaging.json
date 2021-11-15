@@ -30,7 +30,7 @@
           {
             "name": "queue-name",
             "in": "path",
-            "description": "ID of pet to update",
+            "description": "Queue name",
             "required": true,
             "schema": {
               "type": "string"
@@ -42,7 +42,8 @@
             "description": "Content type",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "default": "application/json"
             }
           },
           {
@@ -51,6 +52,7 @@
             "description": "Quality of service",
             "required": true,
             "schema": {
+              "type": "number",
               "enum": [
                 0,
                 1
@@ -67,9 +69,20 @@
             }
           }
         ],
+        "requestBody": {
+          "description": "Message payload",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "204": {
-            "description": "No Content, mesasge published successfully"
+            "description": "No Content, message published successfully"
           },
           "400": {
             "description": "Bad Request",
@@ -82,7 +95,14 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
           }
         }
       }
