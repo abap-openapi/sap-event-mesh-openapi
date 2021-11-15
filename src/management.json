@@ -1,0 +1,39 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "url": "{scheme}://event-mesh-url",
+      "variables": {
+        "scheme": {
+          "enum": [
+            "https"
+          ],
+          "default": "https"
+        }
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "SAP Event Mesh - REST APIs for Messaging Management",
+    "url": "https://help.sap.com/doc/75c9efd00fc14183abc4c613490c53f4/Cloud/en-US/rest-management-messaging.html"
+  },
+  "info": {
+    "title": "SAP Event Mesh - REST APIs for Messaging Management",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "todo",
+        "summary": "todo",
+        "responses": {
+        "200": {
+            "description": "todo",
+            "content": {
+            }
+          }
+        }
+      }
+    }
+  }
+}

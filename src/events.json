@@ -1,0 +1,39 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "url": "{scheme}://event-mesh-url",
+      "variables": {
+        "scheme": {
+          "enum": [
+            "https"
+          ],
+          "default": "https"
+        }
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "SAP Event Mesh - HTTP APIs for Events",
+    "url": "https://help.sap.com/doc/fd3cd59dbc8a4375ab433bcae35c7332/Cloud/en-US/restapisforevents.html"
+  },
+  "info": {
+    "title": "SAP Event Mesh - HTTP APIs for Events",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "todo",
+        "summary": "todo",
+        "responses": {
+        "200": {
+            "description": "todo",
+            "content": {
+            }
+          }
+        }
+      }
+    }
+  }
+}
