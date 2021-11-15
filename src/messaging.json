@@ -1,0 +1,405 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "url": "https://{subaccount}.enterprise-messaging.cfapps.{region}.hana.ondemand.com/messagingrest/v1",
+      "variables": {
+        "subaccount": {
+          "default": "ENTER-NAME-HERE",
+          "description": "subaccount"
+        },
+        "region": {
+          "default": "eu10",
+          "description": "region"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "oauth2sample": []
+    }
+  ],
+  "externalDocs": {
+    "description": "SAP Event Mesh - REST APIs Messaging",
+    "url": "https://help.sap.com/doc/3dfdf81b17b744ea921ce7ad464d1bd7/Cloud/en-US/messagingrest-api-spec.html"
+  },
+  "info": {
+    "title": "SAP Event Mesh - REST APIs Messaging",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/queues/{queue-name}/messages": {
+      "post": {
+        "operationId": "publish-message-to-queue",
+        "summary": "Publish message to a queue",
+        "parameters": [
+          {
+            "name": "queue-name",
+            "in": "path",
+            "description": "Queue name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "content-type",
+            "in": "header",
+            "description": "Content type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "x-qos",
+            "in": "header",
+            "description": "Quality of service",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/QOS"
+            }
+          },
+          {
+            "name": "x-message-expiration",
+            "in": "header",
+            "description": "Quality of service",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Message payload",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content, message published successfully"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/topics/{topic-name}/messages": {
+      "post": {
+        "operationId": "publish-message-to-topic",
+        "summary": "Publish message to a topic",
+        "parameters": [
+          {
+            "name": "topic-name",
+            "in": "path",
+            "description": "Topic name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "content-type",
+            "in": "header",
+            "description": "Content type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "x-qos",
+            "in": "header",
+            "description": "Quality of service",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/QOS"
+            }
+          },
+          {
+            "name": "x-message-expiration",
+            "in": "header",
+            "description": "Quality of service",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Message payload",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content, message published successfully"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queues/{queue-name}/messages/consumption": {
+      "post": {
+        "operationId": "consume-from-queue",
+        "summary": "Consume message from queue",
+        "parameters": [
+          {
+            "name": "queue-name",
+            "in": "path",
+            "description": "Queue name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-qos",
+            "in": "header",
+            "description": "Quality of service",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/QOS"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "headers": {
+              "X-Message-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content, queue is empty"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queues/{queue-name}/messages/{message-id}/acknowledgement": {
+      "post": {
+        "operationId": "acknowledge-message",
+        "summary": "Acknowledge message consumption",
+        "parameters": [
+          {
+            "name": "queue-name",
+            "in": "path",
+            "description": "Queue name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "message-id",
+            "in": "path",
+            "description": "Message ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions": {
+      "post": {
+        "operationId": "create-subscription",
+        "summary": "Create subscription",
+        "parameters": [
+          {
+            "name": "content-type",
+            "in": "header",
+            "description": "Content Type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Subscription settings",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "qos": {
+                    "$ref": "#/components/schemas/QOS"
+                  },
+                  "pushConfig": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "endpoint": {
+                        "type": "string"
+                      },
+                      "excemptHandShake": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "oauth2sample": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://{subaccount}.authentication.{region}.hana.ondemand.com/oauth/token",
+            "scopes": {}
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ErrorMessage": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "QOS": {
+        "type": "number",
+        "enum": [
+          0,
+          1
+        ]
+      }
+    }
+  }
+}
