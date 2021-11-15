@@ -377,8 +377,7 @@
       "oauth2sample": {
         "type": "oauth2",
         "flows": {
-          "authorizationCode": {
-            "authorizationUrl": "/oauth/authorize",
+          "clientCredentials": {
             "tokenUrl": "/oauth/token",
             "scopes": {}
           }
