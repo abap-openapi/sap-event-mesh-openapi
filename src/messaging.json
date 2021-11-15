@@ -65,10 +65,10 @@
           {
             "name": "x-message-expiration",
             "in": "header",
-            "description": "Quality of service",
+            "description": "Message expiration",
             "required": false,
             "schema": {
-              "type": "number"
+              "type": "integer"
             }
           }
         ],
@@ -146,10 +146,10 @@
           {
             "name": "x-message-expiration",
             "in": "header",
-            "description": "Quality of service",
+            "description": "Message expiration",
             "required": false,
             "schema": {
-              "type": "number"
+              "type": "integer"
             }
           }
         ],
@@ -394,7 +394,7 @@
         }
       },
       "QOS": {
-        "type": "number",
+        "type": "integer",
         "enum": [
           0,
           1
