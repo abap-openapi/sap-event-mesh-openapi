@@ -2,12 +2,8 @@
   "openapi": "3.0.1",
   "servers": [
     {
-      "url": "https://{subaccount}.enterprise-messaging.cfapps.{region}.hana.ondemand.com/messagingrest/v1",
+      "url": "https://enterprise-messaging-pubsub.cfapps.{region}.hana.ondemand.com/messagingrest/v1",
       "variables": {
-        "subaccount": {
-          "default": "ENTER-NAME-HERE",
-          "description": "subaccount"
-        },
         "region": {
           "default": "eu10",
           "description": "region"
